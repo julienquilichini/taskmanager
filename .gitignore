@@ -1,2 +1,25 @@
-
+# Environment
 .env
+
+# Python
+__pycache__/
+.pytest_cache/
+
+# Venv
+.venv/
+backend/.venv/
+
+# Local Data
+data/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# logs
+*.log
+logs/
+
+# Docker
+*.pid
