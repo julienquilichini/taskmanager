@@ -25,12 +25,15 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 ####################################################################################################
-### AGENT CONST
+### SERVER URLS
 ####################################################################################################
 
-SERVER_0_URL = os.getenv("SERVER_0_URL")
-SERVER_1_URL = os.getenv("SERVER_1_URL")
-SERVER_2_URL = os.getenv("SERVER_2_URL")
+SERVER_0 = os.getenv("SERVER_0")
+SERVER_1 = os.getenv("SERVER_1")
+SERVER_2 = os.getenv("SERVER_2")
+
+CALL_SERVER = SERVER_0
+CALL_SERVER_URL = f"https://{SERVER_0}"
 
 
 ####################################################################################################

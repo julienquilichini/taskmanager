@@ -14,6 +14,9 @@ from twilio.twiml.voice_response import VoiceResponse
 from app.core import config
 from app.agents import BookingAgent
 
+from app.db.engine import SessionLocal
+from app.db.repositories.outbound_call_repository import OutboundCallRepository
+
 router = APIRouter(prefix="/call", tags=["outgoing_call"])
 
 
@@ -43,13 +46,18 @@ async def outgoing_call_webhook(request: Request):
     print(f"To: {to_number}")
     print("=====================")
 
+    with SessionLocal() as db:
+        repo = OutboundCallRepository(db)
+        call_data = repo.get_by_call_sid(call_sid)
+    greeting = call_data.greeting if call_data else "Allo"
+
     response = VoiceResponse()
     connect = response.connect()
     connect.conversation_relay(
-        url="wss://s0.quilichini.cloud/call/out/ws",
-        welcome_greeting="Allo",
+        url=f"wss://{config.CALL_SERVER}/call/out/ws",
+        # welcome_greeting=greeting,
         language="fr-FR",
-        interruptible="speech",
+        interruptible="none",
         debug="debugging speaker-events",
     )
 
@@ -97,10 +105,13 @@ async def incoming_ws_connect(websocket: WebSocket):
                 #     "token": "Allo",
                 #     "last": True,
                 # }))     
+                with SessionLocal() as db:
+                    repo = OutboundCallRepository(db)
+                    call_data = repo.get_by_call_sid(call_sid)
 
-                booking_instructions = """[OBJECTIVE] Commande une pizza 4 fromages pour ce soir 18h30"""
-                booking_agent.reset_instructions(instructions=booking_instructions) # Find instructions with call_sid        
-
+                if call_data :
+                    booking_agent.reset_instructions(instructions=call_data.instructions, context=call_data.context or "")       
+    
                 print("\n[SETUP]", flush=True)
                 print(f"call_sid={call_sid}", flush=True)
                 print(f"from={from_number}", flush=True)

@@ -15,7 +15,7 @@ TOOLS_DESCRIPTIONS = [
                         "type": "string",
                         "description": "Phone number to call in E.164 format, e.g. +33123456789.",
                     },
-                    "objective": {
+                    "instructions": {
                         "type": "string",
                         "description": "What the assistant must accomplish during the call.",
                     },
@@ -23,8 +23,12 @@ TOOLS_DESCRIPTIONS = [
                         "type": "string",
                         "description": "Useful details for the call.",
                     },
+                    # "greeting": {
+                    #     "type": "string",
+                    #     "description": "A short introduction sentence to begin the call",
+                    # },
                 },
-                "required": ["phone_number", "objective"],
+                "required": ["phone_number", "instructions", "context"], # "greeting"],
             },
         },
     },

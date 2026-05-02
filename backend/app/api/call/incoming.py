@@ -41,7 +41,7 @@ async def accept_call(request: Request):
     
     connect = response.connect()
     connect.conversation_relay(
-        url="wss://s0.quilichini.cloud/call/in/ws",
+        url=f"wss://{config.CALL_SERVER}/call/in/ws",
         # welcome_greeting="Bonjour, quelles sont les instructions ?",
         language="fr-FR",
         interruptible="none",

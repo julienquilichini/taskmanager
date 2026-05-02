@@ -31,7 +31,7 @@ class BookingAgent:
     def reset_instructions(self, instructions: str = "", context: str = "") -> None :
         self.messages = [{
             "role": "system", 
-            "content": f"""{self.system_prompt}\n\n[INSTRUCTIONS]\n{instructions}\n\n[CONTEXT]\n{context}"""
+            "content": f"""{self.system_prompt}\n\n[SPECIFIC CALL INSTRUCTIONS]\n{instructions}\n\n[CONTEXT]\n{context}"""
         }]
 
     async def reply(self, user_prompt: str) -> str:

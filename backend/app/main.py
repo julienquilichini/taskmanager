@@ -8,6 +8,9 @@ from app.api.llm_planner import router as llm_planner_router
 from app.api.call.incoming import router as incoming_router
 from app.api.call.outgoing import router as outgoing_router
 
+from app.db.engine import Base, engine
+from app.db import models
+
 from app.agents.voice_agent import VoiceAgent
 from app.agents.booking_agent import BookingAgent
 
@@ -25,10 +28,15 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     
     logger.info("Starting server ...")
+
     logger.info("Loading agents ...")
-    
     app.state.voice_agent = VoiceAgent(system_prompt=agents_instructions.VOICE_AGENT_SP)
     app.state.booking_agent = BookingAgent(system_prompt=agents_instructions.BOOKING_AGENT_SP)
+    logger.info("Agents loaded")
+
+    logger.info("Starting database engine...")
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database ready")
 
     logger.info("Server ready 🟢")
 
