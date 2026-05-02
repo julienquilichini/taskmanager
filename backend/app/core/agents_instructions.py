@@ -9,8 +9,7 @@ from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 
-# Charge backend/.env quel que soit le cwd
-# (ce fichier est à backend/app/core/config.py -> on remonte de 3 niveaux)
+# go UP 3 dir to find the root
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(BACKEND_DIR / ".env")
 
