@@ -46,6 +46,25 @@ TOOLS_DESCRIPTIONS = [
                 "required": [],
             },
         },
+    },
+
+    # 3. SEARCH WEB
+    {
+        "type": "function",
+        "function": {
+            "name": "search_web",
+            "description": "Returns the result of a web search for a given query",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The query you want to search the web about"
+                    }
+                },
+                "required": ["query"],
+            },
+        },
     }
 
 ]
