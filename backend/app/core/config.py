@@ -56,6 +56,18 @@ ALLOWED_NUMBERS = os.getenv("ALLOWED_NUMBERS")
 
 
 ####################################################################################################
+### GOOGLE CALENDAR
+####################################################################################################
+
+GOOGLE_SERVICE_ACCOUNT_FILE = os.getenv(
+    "GOOGLE_SERVICE_ACCOUNT_FILE",
+    str(BACKEND_DIR / "secrets" / "calendar_credentials.json"),
+)
+GOOGLE_CALENDAR_ID = os.getenv("GOOGLE_CALENDAR_ID", "primary")
+GOOGLE_CALENDAR_TIMEZONE = os.getenv("GOOGLE_CALENDAR_TIMEZONE", "Europe/Paris")
+
+
+####################################################################################################
 ### AGENT CONST
 ####################################################################################################
 
